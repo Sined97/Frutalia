@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frutalia</title>
+  <link rel="icon" href="tu-logo.png" type="image/png" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,13 +15,47 @@
       flex-direction: column;
       align-items: center;
     }
+
+    .logo-fixed {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      height: 50px;
+      z-index: 999;
+      opacity: 0;
+      animation: fadeInDown 1s ease forwards;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
     h1 {
       color: #f561b7;
+      margin: 0;
     }
+
     .seccion {
       margin: 20px;
       text-align: center;
     }
+
     .botones-opcion button, .card {
       margin: 10px;
       padding: 10px 20px;
@@ -35,24 +70,29 @@
       max-width: 180px;
       transition: background-color 0.3s;
     }
+
     .botones-opcion button:hover, .card:hover {
       background-color: #ffb332;
     }
+
     .card.selected {
       background-color: #a8c22a;
       color: white;
     }
+
     .contenedor-img {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
+
     .card img {
       width: 150px;
       height: auto;
       border-radius: 10px;
       margin-bottom: 10px;
     }
+
     .formulario {
       display: flex;
       flex-direction: column;
@@ -60,12 +100,14 @@
       width: 100%;
       gap: 10px;
     }
+
     input[type="text"], input[type="number"], input[type="date"], select {
       padding: 10px;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
     }
+
     #cuentaImagen {
       display: none;
       width: 100%;
@@ -73,6 +115,7 @@
       margin-top: 10px;
       border-radius: 10px;
     }
+
     #enviar {
       background-color: #00bfa6;
       color: white;
@@ -83,6 +126,7 @@
       border-radius: 8px;
       font-size: 1rem;
     }
+
     .card input[type="number"] {
       width: 60px;
       padding: 6px 10px;
@@ -97,7 +141,12 @@
   </style>
 </head>
 <body>
-  <h1>Frutalia</h1>
+  <!-- Logo flotante animado -->
+  <img src="Frutalia.png" alt="Logo Frutalia" class="logo-fixed">
+
+  <header>
+    <h1>Frutalia</h1>
+  </header>
 
   <div class="seccion botones-opcion">
     <button onclick="mostrarOpciones('paquetes')">Promociones</button>
