@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frutalia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      color: #f561b7;
+    }
+    .seccion {
+      margin: 20px;
+      text-align: center;
+    }
+    .botones-opcion button, .card {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #ff9649;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: top;
+      max-width: 180px;
+      transition: background-color 0.3s;
+    }
+    .botones-opcion button:hover, .card:hover {
+      background-color: #ffb332;
+    }
+    .card.selected {
+      background-color: #a8c22a;
+      color: white;
+    }
+    .contenedor-img {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card img {
+      width: 150px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .formulario {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      width: 100%;
+      gap: 10px;
+    }
+    input[type="text"], input[type="number"], input[type="date"], select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    #cuentaImagen {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      margin-top: 10px;
+      border-radius: 10px;
+    }
+    #enviar {
+      background-color: #00bfa6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .card input[type="number"] {
+      width: 60px;
+      padding: 6px 10px;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      text-align: center;
+      margin-top: 8px;
+      cursor: pointer;
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <h1>Frutalia</h1>
+
+  <div class="seccion botones-opcion">
+    <button onclick="mostrarOpciones('paquetes')">Promociones</button>
+    <button onclick="mostrarOpciones('fruta')">Fruta Individual</button>
+  </div>
+
+  <div id="paquetes" class="seccion contenedor-img" style="display:none">
+    <div class="card" onclick="seleccionarPaquete(this, 'Paquete 1 - $130: Fresa y Uva')">
+      <img src="Paquete 1.png" alt="Paquete 1">
+      <p>Promo 1<br>Fresa y Uva</p>
+    </div>
+    <div class="card" onclick="seleccionarPaquete(this, 'Paquete 2 - $130: Fresa, Frambuesa, Blueberry')">
+      <img src="Paquete 2.png" alt="Paquete 2">
+      <p>Promo 2<br>Fresa, Frambuesa, Blueberry</p>
+    </div>
+    <div class="card" onclick="seleccionarPaquete(this, 'Paquete 3 - $200: Fresa, Blueberry, Frambuesa, Uva')">
+      <img src="Paquete 3.png" alt="Paquete 3">
+      <p>Promo 3<br>Fresa, Blueberry, Frambuesa, Uva</p>
+    </div>
+    <div class="card" onclick="seleccionarPaquete(this, 'Paquete 4 - $235: Fresa, Blueberry, Frambuesa, Uva, Zarzamora')">
+      <img src="Paquete 4.png" alt="Paquete 4">
+      <p>Promo 4<br>Fresa, Blueberry, Frambuesa, Uva, Zarzamora</p>
+    </div>
+  </div>
+
+  <div id="fruta" class="seccion contenedor-img" style="display:none">
+    <div class="card">
+      <img src="Fresa.png" alt="Fresa">
+      <p>Fresa - $65</p>
+      <input type="number" min="0" value="0" data-nombre="Fresa" />
+    </div>
+    <div class="card">
+      <img src="Uva.png" alt="Uva">
+      <p>Uva - $65</p>
+      <input type="number" min="0" value="0" data-nombre="Uva" />
+    </div>
+    <div class="card">
+      <img src="Frambuesa.png" alt="Frambuesa">
+      <p>Frambuesa - $35</p>
+      <input type="number" min="0" value="0" data-nombre="Frambuesa" />
+    </div>
+    <div class="card">
+      <img src="Zarzamora.png" alt="Zarzamora">
+      <p>Zarzamora - $35</p>
+      <input type="number" min="0" value="0" data-nombre="Zarzamora" />
+    </div>
+    <div class="card">
+      <img src="Blue berry.png" alt="Blueberry">
+      <p>Blue berry - $35</p>
+      <input type="number" min="0" value="0" data-nombre="Blue berry" />
+    </div>
+  </div>
+
+  <div class="seccion">
+    <h2>Datos para el pedido</h2>
+    <form class="formulario" id="formulario" onsubmit="event.preventDefault(); enviarWhatsapp();">
+      <input type="text" id="direccion" placeholder="Dirección" required>
+      <input type="text" id="codigoPostal" placeholder="Código Postal" required>
+      <input type="date" id="diaEntrega" required>
+      <select id="metodoPago" onchange="mostrarCuenta()" required>
+        <option value="">Método de pago</option>
+        <option value="Efectivo">Efectivo</option>
+        <option value="Transferencia">Transferencia</option>
+      </select>
+      <img src="Cuenta.png" id="cuentaImagen" alt="Cuenta para transferencia">
+      <button type="submit" id="enviar">Enviar por WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    let paqueteSeleccionado = null;
+
+    function mostrarOpciones(opcion) {
+      document.getElementById('paquetes').style.display = opcion === 'paquetes' ? 'flex' : 'none';
+      document.getElementById('fruta').style.display = opcion === 'fruta' ? 'flex' : 'none';
+      paqueteSeleccionado = null;
+      document.querySelectorAll('#paquetes .card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('#fruta input[type="number"]').forEach(i => i.value = 0);
+    }
+
+    function seleccionarPaquete(elemento, texto) {
+      document.querySelectorAll('#paquetes .card').forEach(c => c.classList.remove('selected'));
+      elemento.classList.add('selected');
+      paqueteSeleccionado = texto;
+      document.querySelectorAll('#fruta input[type="number"]').forEach(i => i.value = 0);
+    }
+
+    function mostrarCuenta() {
+      const metodo = document.getElementById('metodoPago').value;
+      document.getElementById('cuentaImagen').style.display = metodo.toLowerCase() === 'transferencia' ? 'block' : 'none';
+    }
+
+    function enviarWhatsapp() {
+      const direccion = document.getElementById('direccion').value.trim();
+      const codigo = document.getElementById('codigoPostal').value.trim();
+      const dia = document.getElementById('diaEntrega').value;
+      const metodo = document.getElementById('metodoPago').value;
+      if (!direccion || !codigo || !dia || !metodo) {
+        alert('Por favor, completa todos los campos del formulario.');
+        return;
+      }
+
+      let mensaje = 'Hola, quiero hacer un pedido:%0A';
+
+      if (paqueteSeleccionado) {
+        mensaje += `Paquete seleccionado: ${paqueteSeleccionado}%0A`;
+      } else {
+        const frutas = [];
+        document.querySelectorAll('#fruta input[type="number"]').forEach(input => {
+          const cantidad = parseInt(input.value);
+          const nombre = input.getAttribute('data-nombre');
+          if (cantidad > 0) {
+            frutas.push(`${nombre}: ${cantidad}`);
+          }
+        });
+        if (frutas.length === 0) {
+          alert('Por favor, selecciona un paquete o agrega fruta individual.');
+          return;
+        }
+        mensaje += 'Fruta individual:%0A' + frutas.join('%0A') + '%0A';
+      }
+
+      mensaje += `Dirección: ${direccion}%0ACódigo Postal: ${codigo}%0ADía de entrega: ${dia}%0AMétodo de pago: ${metodo}`;
+
+      window.open(`https://wa.me/525579747519?text=${mensaje}`, '_blank');
+    }
+  </script>
+</body>
+</html>
