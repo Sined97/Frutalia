@@ -100,11 +100,11 @@
   <h1>Frutalia</h1>
 
   <div class="seccion botones-opcion">
-    <button onclick="mostrarOpciones('paquetes')">Promociones</button>
-    <button onclick="mostrarOpciones('fruta')">Fruta Individual</button>
+    <button type="button" onclick="mostrarOpciones('paquetes')">Promociones</button>
+    <button type="button" onclick="mostrarOpciones('fruta')">Fruta Individual</button>
   </div>
 
-   <div id="paquetes" class="seccion contenedor-img" style="display:none">
+  <div id="paquetes" class="seccion contenedor-img" style="display:none">
     <div class="card" onclick="seleccionarPaquete(this, 'Paquete 1 - $130: Fresa y Uva')">
       <img src="Paquete 1.png" alt="Paquete 1">
       <p>Promo 1<br>Fresa y Uva</p>
@@ -150,6 +150,7 @@
       <input type="number" min="0" value="0" data-nombre="Blue berry" />
     </div>
   </div>
+
   <div class="seccion">
     <h2>Datos para el pedido</h2>
     <form class="formulario" id="formulario" onsubmit="event.preventDefault(); enviarWhatsapp();">
@@ -167,10 +168,10 @@
   </div>
 
   <script>
-    // Funcionalidad original
     let paqueteSeleccionado = null;
 
     function mostrarOpciones(opcion) {
+      console.log("Mostrando opción:", opcion); // Para verificar que se ejecuta la función
       document.getElementById('paquetes').style.display = opcion === 'paquetes' ? 'flex' : 'none';
       document.getElementById('fruta').style.display = opcion === 'fruta' ? 'flex' : 'none';
       paqueteSeleccionado = null;
@@ -224,7 +225,7 @@
       window.open(`https://wa.me/525533720761?text=${mensaje}`, '_blank');
     }
 
-    // 🔒 Protección contra inspección
+    // Protección básica para evitar inspección fácil
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.onkeydown = function(e) {
       if (
@@ -236,6 +237,9 @@
         return false;
       }
     };
+
+    // Mostrar paquetes al cargar la página
+    window.onload = () => mostrarOpciones('paquetes');
   </script>
 </body>
 </html>
