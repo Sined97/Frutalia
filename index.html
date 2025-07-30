@@ -100,8 +100,8 @@
   <h1>Frutalia</h1>
 
   <div class="seccion botones-opcion">
-    <button type="button" onclick="mostrarOpciones('paquetes')">Promociones</button>
-    <button type="button" onclick="mostrarOpciones('fruta')">Fruta Individual</button>
+    <button onclick="mostrarOpciones('paquetes')">Promociones</button>
+    <button onclick="mostrarOpciones('fruta')">Fruta Individual</button>
   </div>
 
   <div id="paquetes" class="seccion contenedor-img" style="display:none">
@@ -171,7 +171,6 @@
     let paqueteSeleccionado = null;
 
     function mostrarOpciones(opcion) {
-      console.log("Mostrando opción:", opcion); // Para verificar que se ejecuta la función
       document.getElementById('paquetes').style.display = opcion === 'paquetes' ? 'flex' : 'none';
       document.getElementById('fruta').style.display = opcion === 'fruta' ? 'flex' : 'none';
       paqueteSeleccionado = null;
@@ -222,24 +221,9 @@
       }
 
       mensaje += `Dirección: ${direccion}%0ACódigo Postal: ${codigo}%0ADía de entrega: ${dia}%0AMétodo de pago: ${metodo}`;
-      window.open(`https://wa.me/525533720761?text=${mensaje}`, '_blank');
+
+      window.open(`https://wa.me/525579747519?text=${mensaje}`, '_blank');
     }
-
-    // Protección básica para evitar inspección fácil
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.onkeydown = function(e) {
-      if (
-        e.keyCode === 123 || // F12
-        (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74)) || // Ctrl+Shift+I/J
-        (e.ctrlKey && e.keyCode === 85) // Ctrl+U
-      ) {
-        alert('Acceso restringido 🔒');
-        return false;
-      }
-    };
-
-    // Mostrar paquetes al cargar la página
-    window.onload = () => mostrarOpciones('paquetes');
   </script>
 </body>
 </html>
